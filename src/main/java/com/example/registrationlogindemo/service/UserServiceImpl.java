@@ -26,15 +26,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String login(User user) {
-        User user1 = userRepository.findByEmail(user.getEmail());
-
-        if (user1.getEmail().equalsIgnoreCase( user.getEmail()) && user1.getPassword().equalsIgnoreCase( user.getPassword())) {
-            Session s = new Session();
-            s.setUser(user1);
-            s.setToken("dbgdshgbfdjhkgbfghjfdgbvdjbvkf");
-            sessionRepository.save(s);
-            return "login in sucessfully";
-        }
+//        User user1 = userRepository.findByEmail(user.getEmail());
+//
+//        if (user1.getEmail().equalsIgnoreCase( user.getEmail()) && user1.getPassword().equalsIgnoreCase( user.getPassword())) {
+//            Session s = new Session();
+//            s.setUser(user1);
+//            s.setToken("dbgdshgbfdjhkgbfghjfdgbvdjbvkf");
+//            sessionRepository.save(s);
+//            return "login in sucessfully";
+//        }
 
         return "login failed";
 
