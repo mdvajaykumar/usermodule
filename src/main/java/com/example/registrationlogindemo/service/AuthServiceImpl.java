@@ -16,6 +16,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMapAdapter;
 
@@ -29,13 +31,20 @@ import java.util.Optional;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private final UserRepository userRepository;
+    private  UserRepository userRepository;
 
-    private final SessionRepository sessionRepository;
+    private  SessionRepository sessionRepository;
 
-    public AuthServiceImpl(UserRepository userRepository, SessionRepository sessionRepository) {
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
+
+    public AuthServiceImpl(UserRepository userRepository, SessionRepository sessionRepository,
+                           BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;
+        this.bCryptPasswordEncoder =bCryptPasswordEncoder;
+
     }
 
     @Override
@@ -94,7 +103,7 @@ public class AuthServiceImpl implements AuthService {
     public UserDto signup(String email, String password) {
         User user = new User();
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(bCryptPasswordEncoder.encode(password));
         userRepository.save(user);
 
         return UserDto.from(user);
