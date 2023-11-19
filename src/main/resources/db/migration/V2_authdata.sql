@@ -33,7 +33,8 @@ CREATE TABLE authorization
     device_code_value             TEXT NULL,
     device_code_issued_at         datetime NULL,
     device_code_expires_at        datetime NULL,
-    device_code_metadata          TEXT NULL
+    device_code_metadata          TEXT NULL,
+        CONSTRAINT pk_authorization PRIMARY KEY (id)
 
 );
 
@@ -41,7 +42,8 @@ CREATE TABLE authorization_consent
 (
     registered_client_id VARCHAR(255) NOT NULL,
     principal_name       VARCHAR(255) NOT NULL,
-    authorities          VARCHAR(1000) NULL
+    authorities          VARCHAR(1000) NULL,
+    CONSTRAINT pk_authorizationconsent PRIMARY KEY (registered_client_id, principal_name)
 
 );
 
@@ -59,6 +61,8 @@ CREATE TABLE client
     post_logout_redirect_uris     VARCHAR(1000) NULL,
     scopes                        VARCHAR(1000) NULL,
     client_settings               VARCHAR(2000) NULL,
-    token_settings                VARCHAR(2000) NULL
+    token_settings                VARCHAR(2000) NULL,
+    CONSTRAINT pk_client PRIMARY KEY (id)
 
 );
+
